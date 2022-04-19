@@ -14,10 +14,11 @@ import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 import {useEffect, useState} from 'react'
+import { createStackNavigator } from '@react-navigation/stack';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 
-export default function LoginScreen() {
+export default function LoginScreen(props) {
   const [text, setText] = useState("enter your name");
   const [pass, setPass] = useState("enter password");
   const [data, setData] = useState();
@@ -40,7 +41,8 @@ export default function LoginScreen() {
       });
   };
 
-  const gotoHome = (props) => {
+  const gotoHome = () => {
+    console.log(props)
     props.navigation.navigate("HOME");
   };
 
