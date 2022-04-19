@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "95165e27-0f65-4900-b30b-ef5a9a95d77c",
+		"name": "For-Ha",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get-flowers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.10.20.26:2403/api/v1/flowers",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"20",
+						"26"
+					],
+					"port": "2403",
+					"path": [
+						"api",
+						"v1",
+						"flowers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-flower",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Hà xinh gái\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.5.2:2403/api/v1/flowers",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"20",
+						"26"
+					],
+					"port": "2403",
+					"path": [
+						"api",
+						"v1",
+						"flowers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-flower",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Hà xinh gái\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.5.2:2403/api/v1/flowers/625af51cae5864deb18a615b",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"20",
+						"26"
+					],
+					"port": "2403",
+					"path": [
+						"api",
+						"v1",
+						"flowers",
+						"625af51cae5864deb18a615b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-flower",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.5.2:2403/api/v1/flowers/625af51cae5864deb18a615b",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"20",
+						"26"
+					],
+					"port": "2403",
+					"path": [
+						"api",
+						"v1",
+						"flowers",
+						"625af51cae5864deb18a615b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-flower",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.5.2:2403/api/v1/flowers/625af51cae5864deb18a615b",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"20",
+						"26"
+					],
+					"port": "2403",
+					"path": [
+						"api",
+						"v1",
+						"flowers",
+						"625af51cae5864deb18a615b"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
