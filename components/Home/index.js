@@ -1,17 +1,31 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  FlatList,
+  TextInput,
+  Button,
+} from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function HomeScreen(props) {
   const [data, setData] = useState();
   const [flower, setFlower] = useState();
+  let arr = data;
+  // console.log("array pushed: ", arr);
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const getData = async () => {
     await axios({
       method: "GET",
-      url: "http://192.168.5.2:2403/api/v1/flowers/625cda9f4e99a47d008a8f1b",
+      url: "http://172.16.201.84:2403/api/v1/flowers",
     })
-      .then((err) => {
+      .then((res) => {
         if (res) {
           setData(res.data);
         }
@@ -23,38 +37,116 @@ export default function HomeScreen(props) {
 
   //post data to API
   const postData = async () => {
-    if (flower.trim().length > 0) {
+    console.log(flower);
+    if (flower !== undefined || flower !== null) {
       await axios({
         method: "POST",
-        url: "http://192.168.5.2:2403/api/v1/flowers",
+        url: "http://172.16.201.84:2403/api/v1/flowers",
         data: {
           name: flower,
         },
-      }).then((res) => {
-        setFlower(null), getData();
-      });
-
-      useEffect(() => {
-        getData();
-      }, []);
-
-      const render = ({ item, index }) => {
-        return <View style={styles.listData}>
-            <Text></Text>
-        </View>;
-      };
+      })
+        .then((res) => {
+          console.log(res);
+          setFlower(null);
+          getData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
+
+  const deleteData = async (item, index) => {
+    let id = item._id;
+    let newArr = arr.filter(x => x._id!= item._id)
+    console.log(newArr);
+    console.log("update array: ", arr);
+
+    await axios({
+      method:"DELETE",
+      url: "http://172.16.201.84:2403/api/v1/flowers/" + item._id
+    }).then((res) => {
+      console.log("delete done");
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  const renderItem = ({ item, index }) => {
+    return (
+      <View style={{ flex: 1, flexDirection: "row" }}>
+        <View
+          style={{
+            flex: 4,
+            borderColor: "red",
+            borderWidth: 1.5,
+            margin: 4,
+            alignSelf: "center",
+            alignItems: "center",
+            borderRadius: 10,
+            padding: 5,
+          }}
+        >
+          <Text style={{ fontSize: 16 }}>{item.name}</Text>
+        </View>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#fff",
+            flex: 1,
+            alignItems: "center",
+            margin: 3,
+            padding: 2,
+          }}
+        >
+          <Button title="Delete" color={"#f194ff"} onPress={deleteData} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  return (
+    <View style={styles.listData}>
+      <View style={{ flexDirection: "row" }}>
+        <TextInput
+          style={{
+            width: "80%",
+            borderWidth: 2,
+            borderRadius: 10,
+            padding: 4,
+            paddingLeft: 10,
+            alignItems: "center",
+            flex: 4,
+            margin: 10,
+          }}
+          placeholder="enter flower name"
+          onChangeText={setFlower}
+          value={flower}
+        />
+        <Button
+          title="OK"
+          style={{ flex: 1, borderWidth: 2 }}
+          onPress={postData}
+          color={"gray"}
+        ></Button>
+      </View>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item._id}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    listData:{
-        flex: 1,
-        width: "90%",
-        borderWidth: 1,
-        marginVertical: 4,
-        alignSelf: "center",
-        borderRadius: 4,
-        padding: 8
-    }
+  listData: {
+    flex: 1,
+    width: "90%",
+    borderWidth: 1,
+    marginVertical: 4,
+    alignSelf: "center",
+    borderRadius: 4,
+    padding: 8,
+  },
 });

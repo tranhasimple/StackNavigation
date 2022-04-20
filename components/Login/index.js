@@ -29,7 +29,7 @@ export default function LoginScreen(props) {
   const getData = async () => {
     await axios({
       method: "GET",
-      url: "http://192.168.5.2:2403/api/v1/flowers/625cda9f4e99a47d008a8f1b",
+      url: "http://172.16.201.84:2403/api/v1/flowers/625cda9f4e99a47d008a8f1b",
     })
       .then((res) => {
         if (res) {
@@ -42,7 +42,6 @@ export default function LoginScreen(props) {
   };
 
   const gotoHome = () => {
-    console.log(props)
     props.navigation.navigate("HOME");
   };
 
